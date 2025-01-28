@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { loginUser, logoutUser } from "../../utils/fetchAPI";
+import { loginUser } from "../../utils/fetchAPI";
 
-const LoginPage:React.FC = () => {
+interface LoginPageProps {
+    onLogin: () => void;
+  }
+
+const LoginPage:React.FC<LoginPageProps> = ({onLogin}) => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -14,6 +18,7 @@ const LoginPage:React.FC = () => {
         e.preventDefault();
         try {
             await loginUser(name, email);
+            onLogin()
             navigate("/search");
         } catch (err) {
             setError("Invalid login. Please check your credentials.");
