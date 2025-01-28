@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../utils/fetchAPI";
 
-const LoginPage = () => {
+const LoginPage:React.FC = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
