@@ -1,5 +1,6 @@
 import React from "react";
 import { Dog } from "../types";
+import { motion } from "framer-motion";
 
 interface DogCardProps {
   dog: Dog;
@@ -9,7 +10,9 @@ interface DogCardProps {
 
 const DogCard: React.FC<DogCardProps> = ({ dog, isFavorite, onToggleFavorite }) => {
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.05, boxShadow: "0 4px 10px rgba(0,0,0,0.2)" }}
+      whileTap={{ scale: 0.95 }}
       style={{
         border: "1px solid #ccc",
         borderRadius: 8,
@@ -27,10 +30,18 @@ const DogCard: React.FC<DogCardProps> = ({ dog, isFavorite, onToggleFavorite }) 
       <p>Breed: {dog.breed}</p>
       <p>Age: {dog.age}</p>
       <p>Zip Code: {dog.zip_code}</p>
-      <button onClick={() => onToggleFavorite(dog.id)}>
+      <motion.button whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }} style={{
+          padding: "0.5rem",
+          backgroundColor: isFavorite ? "#805252" : "#6e2626",
+          color: "#fff",
+          border: "none",
+          borderRadius: 4,
+          cursor: "pointer",
+        }} onClick={() => onToggleFavorite(dog.id)}>
         {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 
