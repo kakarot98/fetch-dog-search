@@ -69,7 +69,7 @@ const MatchPage: React.FC = () => {
                             style={{ padding: "0.5rem 1rem", marginTop: "1rem", cursor: "pointer", border: "none", borderRadius: "4px" }} onClick={() => navigate("/search")}>Back to Search</motion.button>
                     </div>
                 </motion.div>
-            ) : (
+            ) : (loading &&
                 <>
                     <p>Matching your dog...</p>
                     <button onClick={() => {

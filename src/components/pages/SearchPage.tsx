@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBreeds, searchDogs, fetchDogsByIds, logoutUser } from "../../utils/fetchAPI";
+import { getBreeds, searchDogs, fetchDogsByIds } from "../../utils/fetchAPI";
 import { useNavigate } from "react-router-dom";
 import DogCard from "../DogCard";
 import { Dog } from "../../types"

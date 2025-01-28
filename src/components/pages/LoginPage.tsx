@@ -11,8 +11,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
     const navigate = useNavigate();
+    const [error, setError] = useState("")
 
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -55,6 +55,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                     Login
                 </button>
             </motion.form>
+            {error && (<p>{error}</p>)}
         </div>
     )
 }
