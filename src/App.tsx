@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import './App.css'
 import LoginPage from './components/pages/LoginPage';
 import SearchPage from './components/pages/SearchPage';
@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const location = useLocation()
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -21,11 +22,11 @@ const App: React.FC = () => {
 
 
   return (
-    <Router>
+    <>
       {isAuthenticated && <Navbar onLogout={handleLogout} />}
 
       <AnimatePresence mode='wait'>
-      <Routes>
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={
           isAuthenticated ? <Navigate to="/search" /> : (
             <motion.div
@@ -60,7 +61,7 @@ const App: React.FC = () => {
         ) : <Navigate to="/" />} />
       </Routes>
       </AnimatePresence>
-    </Router>
+    </>
 
   )
 }
