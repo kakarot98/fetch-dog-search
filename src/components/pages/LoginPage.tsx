@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../utils/fetchAPI";
+import { loginUser, logoutUser } from "../../utils/fetchAPI";
 
 const LoginPage:React.FC = () => {
 
