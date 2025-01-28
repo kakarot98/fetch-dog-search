@@ -24,7 +24,7 @@ const App: React.FC = () => {
     <Router>
       {isAuthenticated && <Navbar onLogout={handleLogout} />}
 
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode='wait'>
       <Routes>
         <Route path="/" element={
           isAuthenticated ? <Navigate to="/search" /> : (
