@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from '../utils/fetchAPI';
 import { motion } from "framer-motion";
+import './styles/Navbar.css'
 
 
 
@@ -23,17 +24,7 @@ const Navbar: React.FC<{onLogout: () => void}> = ({onLogout}) => {
     initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "1rem 2rem",
-        backgroundColor: "#4a3e3d",
-        borderBottom: "1px solid #ddd",
-        position: "sticky",
-        top: 0,
-        zIndex: 1000,
-      }}
+      className='navbar'
     >
       <h2>Fetch Dog Search</h2>
       <button onClick={handleLogout} style={{ padding: "0.5rem 1rem" }}>
