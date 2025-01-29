@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import DogCard from "../DogCard";
 import { Dog } from "../../types"
 import { motion, AnimatePresence } from "framer-motion";
+import '../styles/SearchPage.css'
 
 const PAGE_SIZE = 10;
 
@@ -84,77 +85,72 @@ const SearchPage: React.FC = () => {
 
 
     return (
-        <div style={{ margin: "2rem" }}>
-            <motion.div initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }} style={{ display: "flex", gap: "1rem", alignItems: "center", flexDirection: "column" }}>
-                <motion.h1 initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    style={{ textAlign: "center" }}>Search the dog breed you have in your mind right now...</motion.h1>
+        <div className="search-container">
+            
+            <motion.h1 initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="search-title">
+                Search the dog breed you have in your mind right now...
+            </motion.h1>
 
-                <label htmlFor="">Breed Filter: </label>
-                <motion.select name="" id="" value={selectedBreed} onChange={e => {
+            <div className="filters">
+
+                <label htmlFor="breed-filter">Breed Filter: </label>
+                <motion.select id="breed-filter" value={selectedBreed} onChange={e => {
                     setPageFrom(0)
                     setSelectedBreed(e.target.value)
-                }} whileHover={{ scale: 1.05 }}
+                }}
+                    whileHover={{ scale: 1.05 }}
                     whileFocus={{ scale: 1.02 }}
-                    style={{ padding: "0.5rem", borderRadius: "4px", border: "1px solid #ccc" }}>
+                >
                     <option value="">List of breeds...</option>
                     {allBreeds && allBreeds.map(breed => (
                         <option value={breed} key={breed}>{breed}</option>
                     ))}
                 </motion.select>
 
-
-                <div>
-                    <label htmlFor="">Sort by breed: </label>
-                    <motion.select name="" id="" value={sortOrder} onChange={e => {
+                <label htmlFor="sort-order">Sort by breed: </label>
+                <motion.select
+                    id="sort-order"
+                    value={sortOrder}
+                    onChange={e => {
                         setSortOrder(e.target.value as "asc" | "desc")
-                    }} whileHover={{ scale: 1.05 }}
-                        whileFocus={{ scale: 1.02 }} style={{ padding: "0.5rem", borderRadius: "4px", border: "1px solid #ccc" }}>
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </motion.select>
-                </div>
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileFocus={{ scale: 1.02 }}
+                >
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </motion.select>
 
-                <motion.div initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }} style={{ marginTop: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            </div>
+
+    
+
+                <div className="pagination">
                     <motion.button whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }} onClick={handlePrevPage}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            marginRight: "1rem",
-                            cursor: pageFrom === 0 ? "not-allowed" : "pointer",
-                            border: "none",
-                            borderRadius: "4px",
-                        }}
+                        className="pagination-button"
                         disabled={pageFrom === 0}>Prev</motion.button>
                     <motion.button whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }} onClick={handleNextPage}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            marginLeft: "1rem",
-                            cursor: pageFrom + PAGE_SIZE >= totalResults ? "not-allowed" : "pointer",
-                            border: "none",
-                            borderRadius: "4px",
-                        }}
+                        className="pagination-button"
                         disabled={pageFrom + PAGE_SIZE >= totalResults}>Next</motion.button>
-                </motion.div>
+                </div>
 
                 {loading && (
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
-                        style={{ textAlign: "center", marginTop: "1rem" }}
+                        className="loading-message"
                     >
                         Loading dogs...
                     </motion.p>
                 )}
 
-                <motion.div style={{ display: "flex", flexWrap: "wrap", marginTop: "1rem" }}>
+                <div className="dog-cards-container">
                     <AnimatePresence>
                         {dogResults.map((dog) => (
                             <motion.div key={dog.id}
@@ -170,46 +166,21 @@ const SearchPage: React.FC = () => {
                             </motion.div>
                         ))}
                     </AnimatePresence>
-                </motion.div>
+                </div>
 
-                <motion.div initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    style={{ marginTop: "2rem", textAlign: "center" }}>
-                    <motion.button whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }} style={{
-                            padding: "0.75rem 1.5rem",
-                            cursor: favoriteDogIds.length === 0 ? "not-allowed" : "pointer",
-                            borderRadius: "4px",
-                        }} onClick={handleMatch} disabled={favoriteDogIds.length === 0}>Generate Match</motion.button>
+                <div className="match-button-container">
+                    <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }} 
+                        className="match-button" 
+                        onClick={handleMatch} disabled={favoriteDogIds.length === 0}
+                        >
+                            Generate Match
+                    </motion.button>
                     <p>Favorites: {favoriteDogIds.length}</p>
-                    <motion.div initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }} style={{ marginTop: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <motion.button whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }} onClick={handlePrevPage}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            marginRight: "1rem",
-                            cursor: pageFrom === 0 ? "not-allowed" : "pointer",
-                            border: "none",
-                            borderRadius: "4px",
-                        }}
-                        disabled={pageFrom === 0}>Prev</motion.button>
-                    <motion.button whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }} onClick={handleNextPage}
-                        style={{
-                            padding: "0.5rem 1rem",
-                            marginLeft: "1rem",
-                            cursor: pageFrom + PAGE_SIZE >= totalResults ? "not-allowed" : "pointer",
-                            border: "none",
-                            borderRadius: "4px",
-                        }}
-                        disabled={pageFrom + PAGE_SIZE >= totalResults}>Next</motion.button>
-                </motion.div>
 
-                </motion.div>
-            </motion.div>
+                </div>
+            
         </div>
     )
 }

@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
 
   return (
-    <>
+    <div className='app-container'>
       {isAuthenticated && <Navbar onLogout={handleLogout} />}
 
       <AnimatePresence mode='wait'>
@@ -34,6 +34,7 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1 }}
+              className='main-content'
             >
               <LoginPage onLogin={handleLogin} />
             </motion.div>
@@ -45,6 +46,7 @@ const App: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
+            className='main-content'
           >
             <SearchPage />
           </motion.div>
@@ -55,13 +57,14 @@ const App: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
+            className='main-content'
           >
             <MatchPage />
           </motion.div>
         ) : <Navigate to="/" />} />
       </Routes>
       </AnimatePresence>
-    </>
+    </div>
 
   )
 }
